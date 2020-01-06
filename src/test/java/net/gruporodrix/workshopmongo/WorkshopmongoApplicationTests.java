@@ -1,4 +1,4 @@
-package net.gruporodrix.course;
+package net.gruporodrix.workshopmongo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
