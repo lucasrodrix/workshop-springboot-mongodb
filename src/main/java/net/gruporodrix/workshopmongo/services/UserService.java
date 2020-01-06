@@ -21,8 +21,8 @@ public class UserService {
 	}
 	
 	public User findById(String id) {
-		Optional<User> user = repo.findById(id);
-		return user.orElseThrow(() -> new ObjectNotFoundException(String.format("Requested id=%s does not exist", id)));
+		Optional<User> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(String.format("Requested id=%s does not found", id)));
 	}
 	
 	public User insert(User obj) {
@@ -32,6 +32,17 @@ public class UserService {
 	public void delete(String id) {
 		findById(id);
 		repo.deleteById(id);
+	}
+	
+	public User update(User obj) {
+		User newObj = repo.findById(obj.getId()).get();
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
 	}
 	
 	public User fromDTO(UserDTO objDTO) {
